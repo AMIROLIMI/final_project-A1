@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guessing Game</title>
-    <link rel="stylesheet" href="/static/style.css"> <!-- Ссылка на CSS -->
+    <title>Игра "Угадай страну"</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Добро пожаловать в игру "Угадай мою страну"!</h1>
-        <p>Привет! Меня зовут Амир. Сможешь угадать, из какой я страны?</p>
+        <h1>Добро пожаловать в игру "Угадай страну"!</h1>
+        <p>Привет! Меня зовут Олимов Амир. Сможешь угадать, из какой я страны?</p>
         <form action="/result" method="post">
             <label for="country">Введите название страны:</label>
             <input type="text" id="country" name="country" required>
