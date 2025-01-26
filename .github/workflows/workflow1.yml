@@ -1,0 +1,57 @@
+name: Deploy and Run Flask Web Application on EC2
+
+on:
+  push:
+    branches:
+      - master  # Позиция для отслеживания коммитов на главной ветке
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest  # Использование последней версии Ubuntu для CI/CD
+
+    steps:
+      # Клонирование репозитория для получения файлов
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      # Просмотр всех файлов и каталогов проекта
+      - name: List directory contents
+        run: |
+          ls -R  # Рекурсивный вывод всех файлов
+
+      # Настройка Docker Buildx для кроссплатформенных сборок
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Логин в Docker Hub с использованием секретов GitHub Actions
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      # Сборка Docker-образа из директории web_page
+      - name: Build Docker image
+        run: |
+          cd web_page  # Переход в директорию с Dockerfile и кодом приложения
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/guessing-game-flask-app:latest -f Dockerfile .
+
+      # Отправка собранного Docker-образа в Docker Hub
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/guessing-game-flask-app:latest
+
+      # Развертывание приложения на сервере EC2 с помощью SSH
+      - name: Deploy to EC2 with SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.REMOTE_HOST }}  # IP-адрес или домен вашего сервера EC2
+          username: ${{ secrets.REMOTE_USER }}  # Пользователь для подключения через SSH (например, ubuntu)
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Приватный ключ для SSH-подключения
+          script: |
+            # Удаление существующего контейнера, если он есть
+            sudo docker container rm -f guessing-game-flask-app || true
+            # Загрузка последней версии Docker-образа
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/guessing-game-flask-app:latest
+            # Запуск нового контейнера с приложением
+            sudo docker run -d --name guessing-game-flask-app -p 8000:8000 ${{ secrets.DOCKER_USERNAME }}/guessing-game-flask-app:latest
+            # Проверка состояния запущенных контейнеров
+            sudo docker ps
+

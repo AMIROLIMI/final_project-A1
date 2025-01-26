@@ -1,0 +1,6 @@
+[ec2_servers]
+final_proj ansible_host=3.75.199.112
+
+[ec2_servers:vars]
+ansible_user=ubuntu 
+ansible_ssh_private_key_file=/home/ubuntu/test-key.pem
