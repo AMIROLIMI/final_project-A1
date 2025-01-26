@@ -1,38 +1,58 @@
 /* Основные стили */
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: linear-gradient(to bottom, #4facfe, #00f2fe);
     margin: 0;
-    padding: 0;
-    color: #333;
+    font-family: 'Poppins', Arial, sans-serif;
+    overflow: hidden;
+    background-color: #f3f4f6;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('https://source.unsplash.com/1600x900/?mountains') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    overflow: hidden;
+    text-align: center;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .container {
-    width: 90%;
-    max-width: 600px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.1);
     padding: 30px;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    max-width: 600px;
+    width: 90%;
 }
 
 h1 {
     font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+h1 span {
+    color: #ffdd57;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 p {
-    font-size: 1.1rem;
-    color: #555;
+    font-size: 1.2rem;
     margin-bottom: 20px;
 }
 
@@ -43,111 +63,62 @@ form {
 label {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #444;
+    display: block;
+    margin-bottom: 10px;
 }
 
 input[type="text"] {
     width: 80%;
     padding: 10px;
-    margin: 10px 0;
+    margin-bottom: 15px;
     font-size: 1rem;
     border: 2px solid #4facfe;
     border-radius: 10px;
     outline: none;
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
 input[type="text"]:focus {
-    border-color: #00f2fe;
-    box-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    border-color: #ffdd57;
+    box-shadow: 0 0 10px rgba(255, 221, 87, 0.5);
 }
 
 button {
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
     color: white;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
     border: none;
-    border-radius: 50px;
+    border-radius: 30px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+    box-shadow: 0 10px 20px rgba(255, 126, 95, 0.5);
 }
 
-.hidden {
-    display: none;
+.extra-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 20px;
 }
 
-/* Анимации */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.hint-btn {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
 }
 
-/* Успех */
-#success-page {
-    background: linear-gradient(to bottom, #43e97b, #38f9d7);
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    animation: fadeIn 1s ease-in-out;
+.restart-btn {
+    background: linear-gradient(to right, #43e97b, #38f9d7);
 }
 
-#success-page h1 {
-    color: white;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+.footer {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-style: italic;
+    color: #ffdd57;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-#success-page p {
-    color: #f3f3f3;
-    font-size: 1.1rem;
-}
-
-/* Ошибка */
-#failure-page {
-    background: linear-gradient(to bottom, #ff6a95, #f650a0);
-    color: white;
-    padding: 30px;
-    border-radius: 20px;
-    animation: fadeIn 1s ease-in-out;
-}
-
-#failure-page h1 {
-    color: white;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-}
-
-#failure-page p {
-    color: #f3f3f3;
-    font-size: 1.1rem;
-}
-
-/* Кнопки для успеха и неудачи */
-#success-page button,
-#failure-page button {
-    background: white;
-    color: #333;
-    font-weight: bold;
-    border: 2px solid transparent;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-#success-page button:hover {
-    background: #38f9d7;
-    color: white;
-}
-
-#failure-page button:hover {
-    background: #f650a0;
-    color: white;
-}
