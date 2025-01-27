@@ -7,7 +7,7 @@ WORKDIR /app
 # Копируем файл зависимостей
 COPY dependencies.txt .
 
-# Устанавливаем зависимости из файла requirements.txt
+# Устанавливаем зависимости из файла 
 RUN pip install --no-cache-dir -r dependencies.txt
 
 # Копируем весь проект в рабочую директорию
