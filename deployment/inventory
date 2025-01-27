@@ -1,5 +1,5 @@
 [ec2_servers]
-final_proj ansible_host=3.75.199.112
+final_proj ansible_host=3.70.250.187
 
 [ec2_servers:vars]
 ansible_user=ubuntu 
